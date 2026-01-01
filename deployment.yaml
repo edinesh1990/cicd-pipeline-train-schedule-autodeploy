@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abc-portal
+  labels:
+    app: shopping-portal
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: shopping-portal
+  template:
+    metadata:
+      labels:
+        app: shopping-portal
+    spec:
+      containers:
+      - name: portal-container
+        # Replace with your actual Docker Hub username
+        image: your-dockerhub-username/abc-portal:latest
+        ports:
+        - containerPort: 5000
+        resources:
+          requests:
+            cpu: "100m"
+          limits:
+            cpu: "200m"
