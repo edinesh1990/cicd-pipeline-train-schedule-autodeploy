@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     parameters {
-        string(name: 'REPO_URL', defaultValue: 'https://github.com/edinesh1990/cicd-pipeline-train-schedule-autodeploy.git', description: 'GitHub Repository URL') [cite: 35]
-        string(name: 'DOCKER_HUB_USER', defaultValue: 'edinesh90', description: 'Docker Hub Username') [cite: 29]
+        string(name: 'REPO_URL', defaultValue: 'https://github.com/edinesh1990/cicd-pipeline-train-schedule-autodeploy.git', description: 'GitHub Repository URL')
+        string(name: 'DOCKER_HUB_USER', defaultValue: 'edinesh90', description: 'Docker Hub Username') 
     }
 
     environment {
@@ -17,7 +17,7 @@ pipeline {
                 // Clones the retail company's code [cite: 13]
                 checkout([$class: 'GitSCM', 
                     userRemoteConfigs: [[url: "${params.REPO_URL}"]], 
-                    branches: [[name: '*/master']]
+                    branches: [[name: '*/feature/cicd-pipeline-project']]
                 ])
             }
         }
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 // Sets up Autoscaling (HPA) and Continuous Monitoring [cite: 18, 31, 32]
                 bat "kubectl apply -f hpa.yaml"
-                echo "Deployment successful. Monitor via Prometheus/Grafana." [cite: 24, 26]
+                echo "Deployment successful. Monitor via Prometheus/Grafana." 
             }
         }
     }
