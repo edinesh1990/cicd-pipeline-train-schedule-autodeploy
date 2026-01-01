@@ -31,8 +31,8 @@ pipeline {
             steps {
                 script {
                     // Builds the image for the retail portal [cite: 10, 16]
-                    sh "docker build -t ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER} ."
-                    sh "docker tag ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER} ${DOCKER_USER}/${APP_NAME}:latest"
+                    sh "sudo docker build -t ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER} ."
+                    sh "sudo docker tag ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER} ${DOCKER_USER}/${APP_NAME}:latest"
                 }
             }
         }
@@ -42,8 +42,8 @@ pipeline {
                 // Pushes images to the Docker Hub repository [cite: 16, 29]
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                     sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
-                    sh "docker push ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER}"
-                    sh "docker push ${DOCKER_USER}/${APP_NAME}:latest"
+                    sh "sudo docker push ${DOCKER_USER}/${APP_NAME}:${BUILD_NUMBER}"
+                    sh "sudo docker push ${DOCKER_USER}/${APP_NAME}:latest"
                 }
             }
         }
