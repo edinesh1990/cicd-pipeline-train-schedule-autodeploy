@@ -43,17 +43,18 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                // Continuous Deployment to the local kubernetes-cluster [cite: 17, 33]
-                bat "kubectl apply -f deployment.yaml"
-                bat "kubectl apply -f service.yaml"
-                bat "kubectl set image deployment/abstergo-portal portal-container=%DOCKER_USER%/%APP_NAME%:%BUILD_NUMBER%"
+                // Use the --kubeconfig flag to point to your actual config file
+                // Replace 'YourUser' with your actual Windows username
+                bat 'kubectl --kubeconfig="C:\\Users\\Lenovo\\.kube\\config" apply -f deployment.yaml'
+                bat 'kubectl --kubeconfig="C:\\Users\\Lenovo\\.kube\\config" apply -f service.yaml'
+                bat 'kubectl --kubeconfig="C:\\Users\\Lenovo\\.kube\\config" set image deployment/abc-portal portal-container=%DOCKER_USER%/%APP_NAME%:%BUILD_NUMBER%'
             }
         }
 
         stage('Monitoring & Scaling') {
             steps {
                 // Sets up Autoscaling (HPA) and Continuous Monitoring [cite: 18, 31, 32]
-                bat "kubectl apply -f hpa.yaml"
+                bat 'kubectl --kubeconfig="C:\\Users\\Lenovo\\.kube\\config"  kubectl apply -f hpa.yaml'
                 echo "Deployment successful. Monitor via Prometheus/Grafana." 
             }
         }
