@@ -54,7 +54,7 @@ pipeline {
         stage('Monitoring & Scaling') {
             steps {
                 // Sets up Autoscaling (HPA) and Continuous Monitoring [cite: 18, 31, 32]
-                bat 'kubectl --kubeconfig="C:\\Users\\Lenovo\\.kube\\config"  kubectl apply -f hpa.yaml'
+                bat 'kubectl --kubeconfig="C:\\Users\\Lenovo\\.kube\\config"  apply -f hpa.yaml'
                 echo "Deployment successful. Monitor via Prometheus/Grafana." 
             }
         }
